@@ -40,7 +40,11 @@ export default function TasksSection() {
       .catch(() => setError("Failed to load tasks"))
       .finally(() => setLoading(false));
     const socket = getSocket();
-    socket.on("tasks:update", (data: any) => setTasks(Array.isArray(data) ? data : data.tasks || []));
+    socket.on("tasks:update", (data: unknown) => {
+      if (Array.isArray(data)) setTasks(data as Task[]);
+      else if (data && typeof data === "object" && "tasks" in data) setTasks((data as { tasks: Task[] }).tasks);
+      else setTasks([]);
+    });
     return () => { socket.off("tasks:update"); };
   }, [token]);
 
@@ -88,8 +92,9 @@ export default function TasksSection() {
       });
       if (!res.ok) throw new Error("Failed to save task");
       closeModal();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) setError(err.message);
+      else setError("Failed to save task");
     }
   };
 
@@ -105,8 +110,9 @@ export default function TasksSection() {
       });
       if (!res.ok) throw new Error("Failed to delete task");
       setDeleteTaskId(null);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) setError(err.message);
+      else setError("Failed to delete task");
     }
   };
 

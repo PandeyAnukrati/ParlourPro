@@ -5,7 +5,7 @@ import { useEffect, useState, useMemo } from "react";
 import { getSocket } from "@/lib/socket";
 import { toast } from "sonner";
 import { BadgeCheck, LogOut } from "lucide-react";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import apiBaseUrl from "@/utils/apiBaseUrl";
 
 interface AttendanceLog {
@@ -16,7 +16,7 @@ interface AttendanceLog {
 }
 
 export default function AttendanceSection() {
-  const { user, token } = useAuth();
+  const { token } = useAuth();
   const [logs, setLogs] = useState<AttendanceLog[]>([]);
   const [selectedEmployee, setSelectedEmployee] = useState<string | null>(null);
   const [employeeLogs, setEmployeeLogs] = useState<AttendanceLog[]>([]);
@@ -119,11 +119,11 @@ export default function AttendanceSection() {
           </table>
         )}
       </div>
-      <div className="mt-1 text-xs text-neutral-400">Click an employee's name to view their daily punch logs.</div>
+      <div className="mt-1 text-xs text-neutral-400">Click an employee&apos;s name to view their daily punch logs.</div>
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="max-w-xl p-0 overflow-hidden">
           <DialogHeader className="bg-[#FFAFCC] px-6 py-4 border-b">
-            <DialogTitle className="text-lg font-bold text-sidebar-text">{selectedEmployee}'s Daily Attendance</DialogTitle>
+            <DialogTitle className="text-lg font-bold text-sidebar-text">{selectedEmployee}&apos;s Daily Attendance</DialogTitle>
             <DialogDescription className="text-xs text-sidebar-text/80">All punch in/out records for this employee, grouped by day.</DialogDescription>
           </DialogHeader>
           <div className="p-6 bg-white max-h-96 overflow-y-auto">

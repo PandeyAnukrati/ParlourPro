@@ -25,7 +25,6 @@ export default function EmployeesSection() {
   const [showModal, setShowModal] = useState(false);
   const [editEmployee, setEditEmployee] = useState<Employee | null>(null);
   const [form, setForm] = useState({ name: "", email: "", role: "employee", password: "" });
-  const [deleteId, setDeleteId] = useState<string | null>(null);
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
@@ -89,8 +88,9 @@ export default function EmployeesSection() {
       });
       if (!res.ok) throw new Error("Failed to save employee");
       closeModal();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) setError(err.message);
+      else setError("Failed to save employee");
     }
   };
 
@@ -103,9 +103,9 @@ export default function EmployeesSection() {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error("Failed to delete employee");
-      setDeleteId(null);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) setError(err.message);
+      else setError("Failed to delete employee");
     } finally {
       setDeleting(false);
     }

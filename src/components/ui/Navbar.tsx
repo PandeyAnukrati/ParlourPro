@@ -2,15 +2,18 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu } from "lucide-react";
+import Image from "next/image";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   return (
     <nav className="w-full bg-white/80 backdrop-blur shadow-lg flex items-center justify-between px-6 py-4 sticky top-0 z-50 border-b border-indigo-100">
       <div className="flex items-center gap-2">
-        <img
+        <Image
           src="/logo.svg"
           alt="ParlourPro Logo"
+          width={40}
+          height={40}
           className="w-10 h-10 rounded-full border-2 border-pink-400 shadow"
         />
         <Link href="/">

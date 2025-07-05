@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import apiBaseUrl from "@/utils/apiBaseUrl";
+import Link from "next/link";
 
 export default function EmployeeLoginPage() {
   const [employeeId, setEmployeeId] = useState("");
@@ -27,7 +28,7 @@ export default function EmployeeLoginPage() {
       } else {
         toast.error(data.message || "Login failed");
       }
-    } catch (err) {
+    } catch {
       toast.error("Network error");
     } finally {
       setLoading(false);
@@ -67,7 +68,7 @@ export default function EmployeeLoginPage() {
         </button>
       </form>
       <div className="flex justify-center mt-4">
-        <a href="/" className="text-indigo-600 hover:underline font-semibold">Back to Home</a>
+        <Link href="/" className="text-indigo-600 hover:underline font-semibold">Back to Home</Link>
       </div>
     </div>
   );

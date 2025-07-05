@@ -35,8 +35,9 @@ export default function LoginPage() {
       if (data.role === "superadmin" || data.role === "admin")
         router.push("/dashboard");
       else setError("Unauthorized role");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) setError(err.message);
+      else setError("Login failed");
     } finally {
       setLoading(false);
     }

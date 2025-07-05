@@ -53,7 +53,7 @@ export default function UserDashboard() {
       if (!tasksRes.ok) throw new Error("Failed to fetch tasks");
       const tasksData = await tasksRes.json();
       setTasks(tasksData);
-    } catch (err) {
+    } catch {
       toast.error("Session expired. Please login again.");
       localStorage.removeItem("employeeToken");
       router.push("/user-login");
