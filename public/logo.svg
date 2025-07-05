@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="32" cy="32" r="32" fill="url(#paint0_linear)"/>
+  <ellipse cx="32" cy="38" rx="18" ry="10" fill="#fff" fill-opacity=".7"/>
+  <ellipse cx="32" cy="26" rx="12" ry="12" fill="url(#paint1_radial)"/>
+  <ellipse cx="32" cy="26" rx="7" ry="7" fill="#fff" fill-opacity=".9"/>
+  <text x="32" y="44" text-anchor="middle" font-size="16" font-family="Verdana" fill="#fff" font-weight="bold">PP</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a5b4fc"/>
+      <stop offset="1" stop-color="#f472b6"/>
+    </linearGradient>
+    <radialGradient id="paint1_radial" cx="0" cy="0" r="1" gradientTransform="translate(32 26) scale(12)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f472b6"/>
+      <stop offset="1" stop-color="#6366f1"/>
+    </radialGradient>
+  </defs>
+</svg>
