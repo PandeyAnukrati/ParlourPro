@@ -1,10 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const auth_1 = require("../middleware/auth");
-const attendanceController_1 = require("../controllers/attendanceController");
-const router = (0, express_1.Router)();
-router.get('/', auth_1.authenticateJWT, attendanceController_1.getAttendanceLogs);
-router.get('/state', auth_1.authenticateJWT, attendanceController_1.getAttendanceState);
-router.post('/punch', auth_1.authenticateJWT, attendanceController_1.punchAttendance);
-exports.default = router;
+import { Router } from 'express';
+import { authenticateJWT } from '../middleware/auth';
+import { getAttendanceLogs, getAttendanceState, punchAttendance } from '../controllers/attendanceController';
+const router = Router();
+router.get('/', authenticateJWT, getAttendanceLogs);
+router.get('/state', authenticateJWT, getAttendanceState);
+router.post('/punch', authenticateJWT, punchAttendance);
+export default router;

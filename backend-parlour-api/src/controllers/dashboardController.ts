@@ -4,7 +4,7 @@ import User from '../models/User';
 import Task from '../models/Task';
 import Attendance from '../models/Attendance';
 
-export async function getDashboardStats(req: Request, res: Response) {
+export async function getDashboardStats(req: Request, res: Response): Promise<void> {
   // Count employees (from Employee collection)
   const employeesCount = await Employee.countDocuments();
   // Count admins (from User collection)

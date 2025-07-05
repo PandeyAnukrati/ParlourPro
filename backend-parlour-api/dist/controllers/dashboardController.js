@@ -1,29 +1,23 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDashboardStats = getDashboardStats;
-const Employee_1 = __importDefault(require("../models/Employee"));
-const User_1 = __importDefault(require("../models/User"));
-const Task_1 = __importDefault(require("../models/Task"));
-const Attendance_1 = __importDefault(require("../models/Attendance"));
-async function getDashboardStats(req, res) {
+import Employee from '../models/Employee';
+import User from '../models/User';
+import Task from '../models/Task';
+import Attendance from '../models/Attendance';
+export async function getDashboardStats(req, res) {
     // Count employees (from Employee collection)
-    const employeesCount = await Employee_1.default.countDocuments();
+    const employeesCount = await Employee.countDocuments();
     // Count admins (from User collection)
-    const adminsCount = await User_1.default.countDocuments({ role: 'admin' });
+    const adminsCount = await User.countDocuments({ role: 'admin' });
     // Count tasks
-    const tasksCount = await Task_1.default.countDocuments();
+    const tasksCount = await Task.countDocuments();
     // Attendance today
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const attendanceToday = await Attendance_1.default.countDocuments({ timestamp: { $gte: today } });
+    const attendanceToday = await Attendance.countDocuments({ timestamp: { $gte: today } });
     // Attendance for last 7 days (group by day)
     const last7 = new Date();
     last7.setDate(today.getDate() - 6);
     last7.setHours(0, 0, 0, 0);
-    const attendanceGraph = await Attendance_1.default.aggregate([
+    const attendanceGraph = await Attendance.aggregate([
         { $match: { timestamp: { $gte: last7 } } },
         { $group: {
                 _id: { $dateToString: { format: "%Y-%m-%d", date: "$timestamp" } },

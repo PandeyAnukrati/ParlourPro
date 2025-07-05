@@ -1,26 +1,17 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getEmployees = getEmployees;
-exports.createEmployee = createEmployee;
-exports.updateEmployee = updateEmployee;
-exports.deleteEmployee = deleteEmployee;
-const Employee_1 = __importDefault(require("../models/Employee"));
-const Attendance_1 = __importDefault(require("../models/Attendance"));
-const User_1 = __importDefault(require("../models/User"));
-const hash_1 = require("../utils/hash");
-async function getEmployees(req, res) {
+import Employee from '../models/Employee';
+import Attendance from '../models/Attendance';
+import User from '../models/User';
+import { hashPassword } from '../utils/hash';
+export async function getEmployees(req, res) {
     // Fetch employees from Employee collection
-    const employees = await Employee_1.default.find();
+    const employees = await Employee.find();
     // Fetch admins from User collection (role: 'admin')
-    const admins = await User_1.default.find({ role: 'admin' });
+    const admins = await User.find({ role: 'admin' });
     // For each employee, determine today's punch state and last action from attendance logs
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const employeeIds = employees.map(e => e._id ? (typeof e._id === 'object' ? e._id.toString() : String(e._id)) : "");
-    const attendanceLogs = await Attendance_1.default.find({
+    const attendanceLogs = await Attendance.find({
         employeeId: { $in: employeeIds },
         timestamp: { $gte: today },
     }).sort({ timestamp: 1 });
@@ -62,50 +53,50 @@ async function getEmployees(req, res) {
     ];
     res.json(merged);
 }
-async function createEmployee(req, res) {
+export async function createEmployee(req, res) {
     const { name, email, password } = req.body;
     if (!name || !email) {
         res.status(400).json({ message: 'Missing fields' });
         return;
     }
     // Check both Employee and User collections for unique email
-    const existsInEmployee = await Employee_1.default.findOne({ email });
-    const existsInUser = await User_1.default.findOne({ email });
+    const existsInEmployee = await Employee.findOne({ email });
+    const existsInUser = await User.findOne({ email });
     if (existsInEmployee || existsInUser) {
         res.status(400).json({ message: 'Email already exists' });
         return;
     }
     // If password provided, store it (for employee login)
-    const employee = await Employee_1.default.create({ name, email, password: password ? (0, hash_1.hashPassword)(password) : undefined });
-    req.io?.emit('employees:update', await Employee_1.default.find());
+    const employee = await Employee.create({ name, email, password: password ? hashPassword(password) : undefined });
+    req.io?.emit('employees:update', await Employee.find());
     res.status(201).json(employee);
 }
-async function updateEmployee(req, res) {
+export async function updateEmployee(req, res) {
     const { id } = req.params;
     const { name, email } = req.body;
     // Check both Employee and User collections for unique email (excluding current)
-    const existsInEmployee = await Employee_1.default.findOne({ email, _id: { $ne: id } });
-    const existsInUser = await User_1.default.findOne({ email, _id: { $ne: id } });
+    const existsInEmployee = await Employee.findOne({ email, _id: { $ne: id } });
+    const existsInUser = await User.findOne({ email, _id: { $ne: id } });
     if (existsInEmployee || existsInUser) {
         res.status(400).json({ message: 'Email already exists' });
         return;
     }
-    const employee = await Employee_1.default.findByIdAndUpdate(id, { name, email }, { new: true });
+    const employee = await Employee.findByIdAndUpdate(id, { name, email }, { new: true });
     if (!employee) {
         res.status(404).json({ message: 'Not found' });
         return;
     }
-    req.io?.emit('employees:update', await Employee_1.default.find());
+    req.io?.emit('employees:update', await Employee.find());
     res.json(employee);
 }
-async function deleteEmployee(req, res) {
+export async function deleteEmployee(req, res) {
     const { id } = req.params;
     // Try to delete from Employee collection
-    let employee = await Employee_1.default.findByIdAndDelete(id);
+    let employee = await Employee.findByIdAndDelete(id);
     if (employee) {
         // After deletion, fetch both employees and admins for update
-        const employees = await Employee_1.default.find();
-        const admins = await User_1.default.find({ role: 'admin' });
+        const employees = await Employee.find();
+        const admins = await User.find({ role: 'admin' });
         const merged = [
             ...employees.map(e => ({
                 _id: e._id,
@@ -125,12 +116,12 @@ async function deleteEmployee(req, res) {
         return;
     }
     // If not found, try to delete from User collection (admin)
-    let user = await User_1.default.findById(id);
+    let user = await User.findById(id);
     if (user && user.role === 'admin') {
-        await User_1.default.findByIdAndDelete(id);
+        await User.findByIdAndDelete(id);
         // After deletion, fetch both employees and admins for update
-        const employees = await Employee_1.default.find();
-        const admins = await User_1.default.find({ role: 'admin' });
+        const employees = await Employee.find();
+        const admins = await User.find({ role: 'admin' });
         const merged = [
             ...employees.map(e => ({
                 _id: e._id,
