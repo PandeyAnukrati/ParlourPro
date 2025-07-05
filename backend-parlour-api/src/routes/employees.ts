@@ -7,6 +7,6 @@ const router = Router();
 router.get('/', authenticateJWT, getEmployees);
 router.post('/', authenticateJWT, authorizeRoles('superadmin'), createEmployee);
 router.put('/:id', authenticateJWT, authorizeRoles('superadmin'), updateEmployee);
-router.delete('/:id', authenticateJWT, authorizeRoles('superadmin'), deleteEmployee);
+router.delete('/:id', authenticateJWT, authorizeRoles('superadmin'), deleteEmployee as any);
 
 export default router;

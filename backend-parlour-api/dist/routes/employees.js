@@ -7,3 +7,4 @@ router.post('/', authenticateJWT, authorizeRoles('superadmin'), createEmployee);
 router.put('/:id', authenticateJWT, authorizeRoles('superadmin'), updateEmployee);
 router.delete('/:id', authenticateJWT, authorizeRoles('superadmin'), deleteEmployee);
 export default router;
+//# sourceMappingURL=employees.js.map

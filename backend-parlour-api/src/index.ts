@@ -73,7 +73,7 @@ io.on('connection', (socket) => {
     // Find employee by email (from user)
     const emp = await Employee.findOne({ email: user.email });
     if (!emp) return;
-    const id = emp._id.toString();
+    const id = (emp._id as any).toString();
     const { isPresent } = data;
     const action = isPresent ? 'Punch In' : 'Punch Out';
     const log = await Attendance.create({

@@ -7,6 +7,6 @@ const router = Router();
 router.get('/', authenticateJWT, getTasks);
 router.post('/', authenticateJWT, authorizeRoles('superadmin'), createTask);
 router.put('/:id', authenticateJWT, authorizeRoles('superadmin'), updateTask);
-router.delete('/:id', authenticateJWT, authorizeRoles('superadmin'), deleteTask);
+router.delete('/:id', authenticateJWT, authorizeRoles('superadmin'), deleteTask as any);
 
 export default router;

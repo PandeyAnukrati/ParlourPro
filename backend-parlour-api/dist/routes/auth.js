@@ -4,3 +4,4 @@ const router = Router();
 router.post('/login', login);
 router.post('/register', register); // For initial setup, remove in production
 export default router;
+//# sourceMappingURL=auth.js.map

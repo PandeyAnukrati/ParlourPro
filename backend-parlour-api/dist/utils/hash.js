@@ -5,3 +5,4 @@ export function hashPassword(password) {
 export function comparePassword(password, hash) {
     return bcrypt.compareSync(password, hash);
 }
+//# sourceMappingURL=hash.js.map

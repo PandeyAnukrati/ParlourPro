@@ -15,3 +15,4 @@ export async function employeeLogin(req, res) {
     const token = jwt.sign({ id: employee._id, email: employee.email, role: 'employee' }, process.env.JWT_SECRET, { expiresIn: '1d' });
     res.json({ token, email: employee.email, name: employee.name, role: 'employee', id: employee._id });
 }
+//# sourceMappingURL=employeeAuthController.js.map

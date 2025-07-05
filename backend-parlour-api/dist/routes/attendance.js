@@ -6,3 +6,4 @@ router.get('/', authenticateJWT, getAttendanceLogs);
 router.get('/state', authenticateJWT, getAttendanceState);
 router.post('/punch', authenticateJWT, punchAttendance);
 export default router;
+//# sourceMappingURL=attendance.js.map

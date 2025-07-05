@@ -6,3 +6,4 @@ const NotificationSchema = new Schema({
     read: { type: Boolean, default: false },
 });
 export default mongoose.model('Notification', NotificationSchema);
+//# sourceMappingURL=Notification.js.map

@@ -6,3 +6,4 @@ const AttendanceSchema = new Schema({
     timestamp: { type: Date, default: Date.now },
 });
 export default mongoose.model('Attendance', AttendanceSchema);
+//# sourceMappingURL=Attendance.js.map

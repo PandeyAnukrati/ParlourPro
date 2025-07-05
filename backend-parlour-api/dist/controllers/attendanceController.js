@@ -56,3 +56,4 @@ export async function punchAttendance(req, res) {
         res.status(500).json({ message: 'Server error' });
     }
 }
+//# sourceMappingURL=attendanceController.js.map

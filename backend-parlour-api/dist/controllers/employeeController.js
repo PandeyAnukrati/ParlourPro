@@ -142,3 +142,4 @@ export async function deleteEmployee(req, res) {
     }
     res.status(404).json({ message: 'Not found' });
 }
+//# sourceMappingURL=employeeController.js.map

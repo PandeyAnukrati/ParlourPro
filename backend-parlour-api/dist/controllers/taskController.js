@@ -37,3 +37,4 @@ export async function deleteTask(req, res) {
     req.io?.emit('tasks:update', tasks);
     res.json({ message: 'Deleted' });
 }
+//# sourceMappingURL=taskController.js.map

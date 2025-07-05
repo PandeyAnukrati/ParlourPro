@@ -7,3 +7,4 @@ router.post('/', authenticateJWT, authorizeRoles('superadmin'), createTask);
 router.put('/:id', authenticateJWT, authorizeRoles('superadmin'), updateTask);
 router.delete('/:id', authenticateJWT, authorizeRoles('superadmin'), deleteTask);
 export default router;
+//# sourceMappingURL=tasks.js.map

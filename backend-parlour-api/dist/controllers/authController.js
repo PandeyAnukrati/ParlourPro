@@ -29,3 +29,4 @@ export async function register(req, res) {
     const user = await User.create({ name, email, password: hashPassword(password), role });
     res.status(201).json({ id: user._id, email: user.email, role: user.role });
 }
+//# sourceMappingURL=authController.js.map

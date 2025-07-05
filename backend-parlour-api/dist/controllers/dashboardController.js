@@ -44,3 +44,4 @@ export async function getDashboardStats(req, res) {
         attendanceGraph: graphData,
     });
 }
+//# sourceMappingURL=dashboardController.js.map

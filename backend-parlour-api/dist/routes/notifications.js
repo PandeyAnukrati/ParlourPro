@@ -5,3 +5,4 @@ const router = Router();
 router.get('/', authenticateJWT, getNotifications);
 router.post('/mark-all-read', authenticateJWT, markAllRead);
 export default router;
+//# sourceMappingURL=notifications.js.map

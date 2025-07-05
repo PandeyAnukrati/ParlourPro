@@ -4,3 +4,4 @@ const TaskSchema = new Schema({
     assignedTo: { type: Schema.Types.ObjectId, ref: 'Employee', required: true },
 });
 export default mongoose.model('Task', TaskSchema);
+//# sourceMappingURL=Task.js.map

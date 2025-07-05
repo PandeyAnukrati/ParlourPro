@@ -4,3 +4,4 @@ import { getDashboardStats } from '../controllers/dashboardController';
 const router = Router();
 router.get('/stats', authenticateJWT, getDashboardStats);
 export default router;
+//# sourceMappingURL=dashboard.js.map

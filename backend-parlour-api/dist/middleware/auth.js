@@ -24,3 +24,4 @@ export function authorizeRoles(...roles) {
         next();
     };
 }
+//# sourceMappingURL=auth.js.map

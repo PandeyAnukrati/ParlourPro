@@ -6,3 +6,4 @@ const UserSchema = new Schema({
     role: { type: String, enum: ['superadmin', 'admin'], required: true },
 });
 export default mongoose.model('User', UserSchema);
+//# sourceMappingURL=User.js.map

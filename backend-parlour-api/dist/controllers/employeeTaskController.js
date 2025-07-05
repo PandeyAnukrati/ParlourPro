@@ -4,3 +4,4 @@ export async function getTasksForEmployee(req, res) {
     const tasks = await Task.find({ assignedTo: employeeId });
     res.json(tasks);
 }
+//# sourceMappingURL=employeeTaskController.js.map

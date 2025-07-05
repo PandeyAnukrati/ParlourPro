@@ -5,3 +5,4 @@ const EmployeeSchema = new Schema({
     password: { type: String }, // Optional for employee login
 });
 export default mongoose.model('Employee', EmployeeSchema);
+//# sourceMappingURL=Employee.js.map

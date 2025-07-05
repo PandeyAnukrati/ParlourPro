@@ -14,3 +14,4 @@ export async function createNotification(type, message, io) {
         io.emit('notification:new', notification);
     }
 }
+//# sourceMappingURL=notificationController.js.map

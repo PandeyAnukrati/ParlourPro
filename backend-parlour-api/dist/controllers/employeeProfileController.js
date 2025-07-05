@@ -17,3 +17,4 @@ export async function getEmployeeProfile(req, res) {
         res.status(500).json({ message: 'Server error' });
     }
 }
+//# sourceMappingURL=employeeProfileController.js.map
