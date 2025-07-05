@@ -1,0 +1,52 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getDashboardStats = getDashboardStats;
+const Employee_1 = __importDefault(require("../models/Employee"));
+const User_1 = __importDefault(require("../models/User"));
+const Task_1 = __importDefault(require("../models/Task"));
+const Attendance_1 = __importDefault(require("../models/Attendance"));
+async function getDashboardStats(req, res) {
+    // Count employees (from Employee collection)
+    const employeesCount = await Employee_1.default.countDocuments();
+    // Count admins (from User collection)
+    const adminsCount = await User_1.default.countDocuments({ role: 'admin' });
+    // Count tasks
+    const tasksCount = await Task_1.default.countDocuments();
+    // Attendance today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const attendanceToday = await Attendance_1.default.countDocuments({ timestamp: { $gte: today } });
+    // Attendance for last 7 days (group by day)
+    const last7 = new Date();
+    last7.setDate(today.getDate() - 6);
+    last7.setHours(0, 0, 0, 0);
+    const attendanceGraph = await Attendance_1.default.aggregate([
+        { $match: { timestamp: { $gte: last7 } } },
+        { $group: {
+                _id: { $dateToString: { format: "%Y-%m-%d", date: "$timestamp" } },
+                count: { $sum: 1 }
+            } },
+        { $sort: { _id: 1 } }
+    ]);
+    // Fill missing days
+    const graphData = [];
+    for (let i = 0; i < 7; i++) {
+        const d = new Date(last7);
+        d.setDate(last7.getDate() + i);
+        const dateStr = d.toISOString().slice(0, 10);
+        const found = attendanceGraph.find((g) => g._id === dateStr);
+        graphData.push({ date: dateStr, count: found ? found.count : 0 });
+    }
+    res.json({
+        stats: {
+            employees: employeesCount,
+            admins: adminsCount,
+            tasks: tasksCount,
+            attendanceToday,
+        },
+        attendanceGraph: graphData,
+    });
+}
