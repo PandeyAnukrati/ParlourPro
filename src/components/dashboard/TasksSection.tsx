@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getSocket } from "@/lib/socket";
 import { Pencil, Trash2 } from "lucide-react";
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
+import apiBaseUrl from "@/utils/apiBaseUrl";
 
 interface Task {
   _id: string;
@@ -31,7 +32,7 @@ export default function TasksSection() {
   const [deleteTaskId, setDeleteTaskId] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/tasks", {
+    fetch(`${apiBaseUrl}/api/tasks`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(res => res.json())
@@ -45,7 +46,7 @@ export default function TasksSection() {
 
   useEffect(() => {
     // Fetch employees for dropdown
-    fetch("http://localhost:5000/api/employees", {
+    fetch(`${apiBaseUrl}/api/employees`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(res => res.json())
@@ -75,8 +76,8 @@ export default function TasksSection() {
     try {
       const method = editTask ? "PUT" : "POST";
       const url = editTask
-        ? `http://localhost:5000/api/tasks/${editTask._id}`
-        : "http://localhost:5000/api/tasks";
+        ? `${apiBaseUrl}/api/tasks/${editTask._id}`
+        : `${apiBaseUrl}/api/tasks`;
       const res = await fetch(url, {
         method,
         headers: {
@@ -98,7 +99,7 @@ export default function TasksSection() {
   const confirmDelete = async () => {
     if (!deleteTaskId) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/tasks/${deleteTaskId}`, {
+      const res = await fetch(`${apiBaseUrl}/api/tasks/${deleteTaskId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

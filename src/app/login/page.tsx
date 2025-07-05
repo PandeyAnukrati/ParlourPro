@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/AuthContext";
 import { Home } from "lucide-react";
+import apiBaseUrl from "@/utils/apiBaseUrl";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function LoginPage() {
     setError("");
     try {
       // Replace with your backend API endpoint
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch(`${apiBaseUrl}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

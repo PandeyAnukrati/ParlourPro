@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import dynamic from "next/dynamic";
 import { RotateCw } from "lucide-react";
+import apiBaseUrl from "@/utils/apiBaseUrl";
 
 const ResponsiveContainer = dynamic(() => import("recharts").then(m => m.ResponsiveContainer), { ssr: false });
 const BarChart = dynamic(() => import("recharts").then(m => m.BarChart), { ssr: false });
@@ -19,7 +20,7 @@ export default function DashboardStats({ token }: { token: string | null }) {
   const fetchStats = () => {
     if (!token) return;
     setLoading(true);
-    fetch("http://localhost:5000/api/dashboard/stats", {
+    fetch(`${apiBaseUrl}/api/dashboard/stats`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(res => res.json())

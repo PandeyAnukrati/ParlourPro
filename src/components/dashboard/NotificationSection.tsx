@@ -4,6 +4,7 @@ import { Bell } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { getSocket } from "@/lib/socket";
 import { toast } from "sonner";
+import apiBaseUrl from "@/utils/apiBaseUrl";
 
 interface Notification {
   _id: string;
@@ -19,7 +20,7 @@ export default function NotificationSection({ token }: { token: string }) {
 
   // Fetch notifications
   useEffect(() => {
-    fetch("http://localhost:5000/api/notifications", {
+    fetch(`${apiBaseUrl}/api/notifications`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(res => res.json())
@@ -42,7 +43,7 @@ export default function NotificationSection({ token }: { token: string }) {
   const markAllRead = () => {
     setNotifications(notifications.map(n => ({ ...n, read: true })));
     // Optionally, send to backend
-    fetch("http://localhost:5000/api/notifications/mark-all-read", {
+    fetch(`${apiBaseUrl}/api/notifications/mark-all-read`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
     });

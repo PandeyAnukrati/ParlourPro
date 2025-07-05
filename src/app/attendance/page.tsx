@@ -7,6 +7,7 @@ import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import { CheckCircle, LogOut } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import apiBaseUrl from "@/utils/apiBaseUrl";
 
 interface Employee {
   _id: string;
@@ -23,7 +24,7 @@ export default function AttendancePage() {
   useEffect(() => {
     // Get token from localStorage if available
     const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-    fetch("http://localhost:5000/api/employees", {
+    fetch(`${apiBaseUrl}/api/employees`, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     })
       .then(res => res.json())

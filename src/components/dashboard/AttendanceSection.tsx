@@ -6,6 +6,7 @@ import { getSocket } from "@/lib/socket";
 import { toast } from "sonner";
 import { BadgeCheck, LogOut } from "lucide-react";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import apiBaseUrl from "@/utils/apiBaseUrl";
 
 interface AttendanceLog {
   _id: string;
@@ -24,7 +25,7 @@ export default function AttendanceSection() {
   useEffect(() => {
     if (!token) return;
     // Fetch attendance logs from backend (replace with real API)
-    fetch("http://localhost:5000/api/attendance", {
+    fetch(`${apiBaseUrl}/api/attendance`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(res => res.json())
@@ -50,7 +51,7 @@ export default function AttendanceSection() {
   // Fetch logs for selected employee
   useEffect(() => {
     if (!selectedEmployee || !token) return;
-    fetch(`http://localhost:5000/api/attendance?employeeName=${encodeURIComponent(selectedEmployee)}`, {
+    fetch(`$${apiBaseUrl}/api/attendance?employeeName=${encodeURIComponent(selectedEmployee)}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(res => res.json())

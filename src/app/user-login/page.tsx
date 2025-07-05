@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import apiBaseUrl from "@/utils/apiBaseUrl";
 
 export default function EmployeeLoginPage() {
   const [employeeId, setEmployeeId] = useState("");
@@ -13,7 +14,7 @@ export default function EmployeeLoginPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/employee/login", {
+      const res = await fetch(`${apiBaseUrl}/api/employee/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: employeeId, password }),

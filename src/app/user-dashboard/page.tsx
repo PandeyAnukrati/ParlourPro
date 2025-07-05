@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import apiBaseUrl from "@/utils/apiBaseUrl";
 
 interface Task {
   _id: string;
@@ -38,7 +39,7 @@ export default function UserDashboard() {
   const fetchProfileAndTasks = async (token: string) => {
     try {
       // Fetch employee profile
-      const profileRes = await fetch("http://localhost:5000/api/employee/profile", {
+      const profileRes = await fetch(`${apiBaseUrl}/api/employee/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!profileRes.ok) throw new Error("Failed to fetch profile");
@@ -46,7 +47,7 @@ export default function UserDashboard() {
       setEmployee(profileData.employee);
 
       // Fetch tasks for employee
-      const tasksRes = await fetch(`http://localhost:5000/api/tasks/employee/${profileData.employee._id}`, {
+      const tasksRes = await fetch(`${apiBaseUrl}/api/tasks/employee/${profileData.employee._id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!tasksRes.ok) throw new Error("Failed to fetch tasks");
@@ -63,7 +64,7 @@ export default function UserDashboard() {
 
   const fetchAttendanceState = async (token: string) => {
     try {
-      const res = await fetch("http://localhost:5000/api/attendance/state", {
+      const res = await fetch(`${apiBaseUrl}/api/attendance/state`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error();
@@ -78,7 +79,7 @@ export default function UserDashboard() {
     setAttendanceLoading(true);
     const token = localStorage.getItem("employeeToken");
     try {
-      const res = await fetch("http://localhost:5000/api/attendance/punch", {
+      const res = await fetch(`${apiBaseUrl}/api/attendance/punch`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       });

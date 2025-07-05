@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getSocket } from "@/lib/socket";
 import { Pencil, Trash2 } from "lucide-react";
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel } from "@/components/ui/alert-dialog";
+import apiBaseUrl from "@/utils/apiBaseUrl";
 
 interface Employee {
   _id: string;
@@ -28,7 +29,7 @@ export default function EmployeesSection() {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/employees", {
+    fetch(`${apiBaseUrl}/api/employees`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(res => res.json())
@@ -56,7 +57,7 @@ export default function EmployeesSection() {
     try {
       if (!editEmployee && form.role === "admin") {
         // Create admin via /api/auth/register
-        const res = await fetch("http://localhost:5000/api/auth/register", {
+        const res = await fetch(`${apiBaseUrl}/api/auth/register`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -76,8 +77,8 @@ export default function EmployeesSection() {
       // Default: create/edit employee via employees API
       const method = editEmployee ? "PUT" : "POST";
       const url = editEmployee
-        ? `http://localhost:5000/api/employees/${editEmployee._id}`
-        : "http://localhost:5000/api/employees";
+        ? `${apiBaseUrl}/api/employees/${editEmployee._id}`
+        : `${apiBaseUrl}/api/employees`;
       const res = await fetch(url, {
         method,
         headers: {
@@ -97,7 +98,7 @@ export default function EmployeesSection() {
     setDeleting(true);
     setError("");
     try {
-      const res = await fetch(`http://localhost:5000/api/employees/${id}`, {
+      const res = await fetch(`${apiBaseUrl}/api/employees/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
