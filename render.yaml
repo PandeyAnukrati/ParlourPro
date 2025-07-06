@@ -18,3 +18,21 @@ services:
         sync: false
       - key: JWT_SECRET
         sync: false
+
+  - type: web
+    name: parlour-dashboard
+    env: node
+    plan: free
+    rootDir: frontend-parlour-dashboard
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        fromService:
+          type: web
+          name: parlour-dashboard
+          property: port
+      - key: NEXT_PUBLIC_BACKEND_URL
+        sync: false
