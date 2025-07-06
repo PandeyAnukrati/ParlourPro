@@ -13,3 +13,5 @@ services:
           type: web
           name: parlour-dashboard
           property: port
+      - key: NEXT_PUBLIC_BACKEND_URL
+        sync: false
