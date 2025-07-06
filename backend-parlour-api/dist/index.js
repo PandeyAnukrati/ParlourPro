@@ -4,18 +4,18 @@ import { Server } from 'socket.io';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import authRoutes from './routes/auth.js';
-import employeeRoutes from './routes/employees.js';
-import taskRoutes from './routes/tasks.js';
-import attendanceRoutes from './routes/attendance.js';
-import dashboardRoutes from './routes/dashboard.js';
-import notificationRoutes from './routes/notifications.js';
-import employeeAuthRoutes from './routes/employeeAuth.js';
-import employeeProfileRoutes from './routes/employeeProfile.js';
-import employeeTaskRoutes from './routes/employeeTasks.js';
-import Attendance from './models/Attendance.js';
-import Employee from './models/Employee.js';
-import { createNotification } from './controllers/notificationController.js';
+import authRoutes from './routes/auth';
+import employeeRoutes from './routes/employees';
+import taskRoutes from './routes/tasks';
+import attendanceRoutes from './routes/attendance';
+import dashboardRoutes from './routes/dashboard';
+import notificationRoutes from './routes/notifications';
+import employeeAuthRoutes from './routes/employeeAuth';
+import employeeProfileRoutes from './routes/employeeProfile';
+import employeeTaskRoutes from './routes/employeeTasks';
+import Attendance from './models/Attendance';
+import Employee from './models/Employee';
+import { createNotification } from './controllers/notificationController';
 import jwt from 'jsonwebtoken';
 dotenv.config();
 const app = express();
@@ -23,6 +23,14 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
 app.use(cors());
 app.use(express.json());
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.json({
+        status: 'OK',
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'development'
+    });
+});
 // Inject io into req for controllers
 app.use((req, res, next) => {
     req.io = io;

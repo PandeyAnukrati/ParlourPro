@@ -13,3 +13,7 @@ services:
           type: web
           name: parlour-api
           property: port
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
