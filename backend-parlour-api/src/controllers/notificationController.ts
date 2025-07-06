@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import Notification from '../models/Notification';
-import { AuthRequest } from '../middleware/auth';
+import Notification from '../models/Notification.js';
+import { AuthRequest } from '../middleware/auth.js';
 
 export async function getNotifications(req: AuthRequest, res: Response): Promise<void> {
   const notifications = await Notification.find().sort({ timestamp: -1 }).limit(100);

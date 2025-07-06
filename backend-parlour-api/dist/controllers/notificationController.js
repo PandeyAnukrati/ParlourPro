@@ -1,4 +1,4 @@
-import Notification from '../models/Notification';
+import Notification from '../models/Notification.js';
 export async function getNotifications(req, res) {
     const notifications = await Notification.find().sort({ timestamp: -1 }).limit(100);
     res.json(notifications);

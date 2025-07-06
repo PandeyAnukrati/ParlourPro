@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import Attendance from '../models/Attendance';
-import Employee from '../models/Employee';
-import { AuthRequest } from '../middleware/auth';
-import { createNotification } from './notificationController';
+import Attendance from '../models/Attendance.js';
+import Employee from '../models/Employee.js';
+import { AuthRequest } from '../middleware/auth.js';
+import { createNotification } from './notificationController.js';
 
 export async function getAttendanceLogs(req: Request, res: Response): Promise<void> {
   const { employeeName } = req.query;

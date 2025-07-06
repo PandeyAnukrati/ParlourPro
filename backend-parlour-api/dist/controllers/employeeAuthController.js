@@ -1,5 +1,5 @@
-import Employee from '../models/Employee';
-import { comparePassword } from '../utils/hash';
+import Employee from '../models/Employee.js';
+import { comparePassword } from '../utils/hash.js';
 import jwt from 'jsonwebtoken';
 export async function employeeLogin(req, res) {
     const { email, password } = req.body;

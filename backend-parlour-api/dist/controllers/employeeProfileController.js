@@ -1,4 +1,4 @@
-import Employee from '../models/Employee';
+import Employee from '../models/Employee.js';
 export async function getEmployeeProfile(req, res) {
     try {
         const employeeId = req.user?.id;

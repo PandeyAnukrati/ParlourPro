@@ -1,4 +1,4 @@
-import Task from '../models/Task';
+import Task from '../models/Task.js';
 export async function getTasks(req, res) {
     const tasks = await Task.find().populate('assignedTo', 'name');
     res.json(tasks);

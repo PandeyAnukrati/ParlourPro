@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Task from '../models/Task';
+import Task from '../models/Task.js';
 
 export async function getTasksForEmployee(req: Request, res: Response) {
   const { employeeId } = req.params;

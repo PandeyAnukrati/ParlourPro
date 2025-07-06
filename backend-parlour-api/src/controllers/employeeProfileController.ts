@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import Employee from '../models/Employee';
-import { AuthRequest } from '../middleware/auth';
+import Employee from '../models/Employee.js';
+import { AuthRequest } from '../middleware/auth.js';
 
 export async function getEmployeeProfile(req: AuthRequest, res: Response): Promise<void> {
   try {

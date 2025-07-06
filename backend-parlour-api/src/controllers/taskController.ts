@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import Task from '../models/Task';
-import { AuthRequest } from '../middleware/auth';
+import Task from '../models/Task.js';
+import { AuthRequest } from '../middleware/auth.js';
 
 export async function getTasks(req: AuthRequest, res: Response): Promise<void> {
   const tasks = await Task.find().populate('assignedTo', 'name');

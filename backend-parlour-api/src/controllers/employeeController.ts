@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import Employee from '../models/Employee';
-import Attendance from '../models/Attendance';
-import { AuthRequest } from '../middleware/auth';
-import User from '../models/User';
+import Employee from '../models/Employee.js';
+import Attendance from '../models/Attendance.js';
+import { AuthRequest } from '../middleware/auth.js';
+import User from '../models/User.js';
 import { Types } from 'mongoose';
-import { hashPassword, comparePassword } from '../utils/hash';
+import { hashPassword, comparePassword } from '../utils/hash.js';
 
 export async function getEmployees(req: AuthRequest, res: Response): Promise<void> {
   // Fetch employees from Employee collection

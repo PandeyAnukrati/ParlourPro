@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { authenticateJWT } from '../middleware/auth';
-import { getAttendanceLogs, getAttendanceState, punchAttendance } from '../controllers/attendanceController';
+import { authenticateJWT } from '../middleware/auth.js';
+import { getAttendanceLogs, getAttendanceState, punchAttendance } from '../controllers/attendanceController.js';
 const router = Router();
 router.get('/', authenticateJWT, getAttendanceLogs);
 router.get('/state', authenticateJWT, getAttendanceState);

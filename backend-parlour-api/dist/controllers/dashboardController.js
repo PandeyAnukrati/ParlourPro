@@ -1,7 +1,7 @@
-import Employee from '../models/Employee';
-import User from '../models/User';
-import Task from '../models/Task';
-import Attendance from '../models/Attendance';
+import Employee from '../models/Employee.js';
+import User from '../models/User.js';
+import Task from '../models/Task.js';
+import Attendance from '../models/Attendance.js';
 export async function getDashboardStats(req, res) {
     // Count employees (from Employee collection)
     const employeesCount = await Employee.countDocuments();

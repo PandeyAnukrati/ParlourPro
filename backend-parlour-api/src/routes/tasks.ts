@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { authenticateJWT, authorizeRoles } from '../middleware/auth';
-import { getTasks, createTask, updateTask, deleteTask } from '../controllers/taskController';
+import { authenticateJWT, authorizeRoles } from '../middleware/auth.js';
+import { getTasks, createTask, updateTask, deleteTask } from '../controllers/taskController.js';
 
 const router = Router();
 

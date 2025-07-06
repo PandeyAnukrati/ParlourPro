@@ -1,7 +1,7 @@
-import Employee from '../models/Employee';
-import Attendance from '../models/Attendance';
-import User from '../models/User';
-import { hashPassword } from '../utils/hash';
+import Employee from '../models/Employee.js';
+import Attendance from '../models/Attendance.js';
+import User from '../models/User.js';
+import { hashPassword } from '../utils/hash.js';
 export async function getEmployees(req, res) {
     // Fetch employees from Employee collection
     const employees = await Employee.find();

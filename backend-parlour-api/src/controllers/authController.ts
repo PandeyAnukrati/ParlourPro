@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import User from '../models/User';
-import { hashPassword, comparePassword } from '../utils/hash';
+import User from '../models/User.js';
+import { hashPassword, comparePassword } from '../utils/hash.js';
 import jwt from 'jsonwebtoken';
 
 export async function login(req: Request, res: Response): Promise<void> {

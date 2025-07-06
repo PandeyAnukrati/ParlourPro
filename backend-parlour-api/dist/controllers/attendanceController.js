@@ -1,6 +1,6 @@
-import Attendance from '../models/Attendance';
-import Employee from '../models/Employee';
-import { createNotification } from './notificationController';
+import Attendance from '../models/Attendance.js';
+import Employee from '../models/Employee.js';
+import { createNotification } from './notificationController.js';
 export async function getAttendanceLogs(req, res) {
     const { employeeName } = req.query;
     let query = {};
